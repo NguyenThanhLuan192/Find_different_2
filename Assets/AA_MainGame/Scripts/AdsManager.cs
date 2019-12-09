@@ -40,7 +40,7 @@ public class AdsManager : MonoBehaviour
     {
         adsManagers = new List<IAdsManager>();
         //adsManagers.Add(new UnityAdsManager());           
-        adsManagers.Add(new AdmobManager());
+        adsManagers.Add(new IronSourceManager());
 
         adsManagers.ForEach(ad =>
         {

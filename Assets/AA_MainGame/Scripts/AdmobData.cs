@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
 
-/*  AppID: ca-app-pub-1667805177474426~3791151569
-   Banner: ca-app-pub-1667805177474426/6225743219
-   Interstitial: ca-app-pub-1667805177474426/7610637764
-   Video: ca-app-pub-1667805177474426/8851906559
-*/
-   
-      /*
-   
-Name: Find The Difference \
-Package: difference.story.action.icefox\
-App Facebook: 1466037986906063\
-\
-\
-AppID: ca-app-pub-1667805177474426~3482790107\
-Banner:  ca-app-pub-1667805177474426/8543545097\
-Interstitial: ca-app-pub-1667805177474426/5917381755\
-Video: ca-app-pub-1667805177474426/5718426425\
-\
-}
+/* Name:  Find Difference Your Life
+Package: differences.find.your.life
+App Facebook: 531083300778753
+
+
+Dùng mediation ironsource:, tích hợp thêm Facebook, admob, unity
+
+Find Difference Your Life 
+APP KEY: aba224d5
+
+Access Key: 29b3488d8f71 
+Secret Key: da307a2f86a3ca8671fcf8eb244398cb 
+Refresh Token: 365e124e417e692ccd6efaf0210a63e5
+ Advertiser Password / ID 51758074 / 119503
+
+———
+
+AppID: 
+Banner: 
+Interstitial: 
+Video: 
    */
 
 namespace IceFoxStudio
