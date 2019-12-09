@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df44a8a39d6446da6a01d56710da934, type: 3}
+  m_Name: ChapterDataManager
+  m_EditorClassIdentifier: 
+  chapterDataObject:
+    _chapterDatas:
+    - _nameBg: chap1
+      idChapter: 0
+      levelDatas:
+      - idChapter: 0
+        lvl: 0
+      - idChapter: 0
+        lvl: 1
+      - idChapter: 0
+        lvl: 2
+      - idChapter: 0
+        lvl: 3
+      - idChapter: 0
+        lvl: 4
+      - idChapter: 0
+        lvl: 5
+      - idChapter: 0
+        lvl: 6
+    - _nameBg: chap2
+      idChapter: 1
+      levelDatas:
+      - idChapter: 1
+        lvl: 0
+      - idChapter: 1
+        lvl: 1
+      - idChapter: 1
+        lvl: 2
+      - idChapter: 1
+        lvl: 3
+      - idChapter: 1
+        lvl: 4
+      - idChapter: 1
+        lvl: 5
+      - idChapter: 1
+        lvl: 6
+      - idChapter: 1
+        lvl: 7
+      - idChapter: 1
+        lvl: 8
+    - _nameBg: chap3
+      idChapter: 2
+      levelDatas:
+      - idChapter: 2
+        lvl: 0
+      - idChapter: 2
+        lvl: 1
+      - idChapter: 2
+        lvl: 2
+      - idChapter: 2
+        lvl: 3
+      - idChapter: 2
+        lvl: 4
+      - idChapter: 2
+        lvl: 5
+      - idChapter: 2
+        lvl: 6
+      - idChapter: 2
+        lvl: 7
