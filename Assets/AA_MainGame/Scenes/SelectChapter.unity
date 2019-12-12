@@ -285,66 +285,6 @@ MonoBehaviour:
     right: 2
   influence: 0.4
   flipPadding: 0
---- !u!21 &351624772
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: LiberationSans SDF Material
-  m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 28684132378477856, guid: 8f586378b4e144a9851e7b34d9b748ee,
-          type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _ColorMask: 15
-    - _FaceDilate: 0
-    - _GradientScale: 10
-    - _MaskSoftnessX: 0
-    - _MaskSoftnessY: 0
-    - _OutlineSoftness: 0
-    - _OutlineWidth: 0
-    - _PerspectiveFilter: 0.875
-    - _ScaleRatioA: 0.9
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 0.73125
-    - _ScaleX: 1
-    - _ScaleY: 1
-    - _ShaderFlags: 0
-    - _Sharpness: 0
-    - _Stencil: 0
-    - _StencilComp: 8
-    - _StencilOp: 0
-    - _StencilReadMask: 255
-    - _StencilWriteMask: 255
-    - _TextureHeight: 1024
-    - _TextureWidth: 1024
-    - _UnderlayDilate: 0
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
-    - _VertexOffsetX: 0
-    - _VertexOffsetY: 0
-    - _WeightBold: 0.75
-    - _WeightNormal: 0
-    m_Colors:
-    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
-    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!114 &698663948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +409,7 @@ GameObject:
   - component: {fileID: 1074061630}
   - component: {fileID: 1074061629}
   - component: {fileID: 1074061628}
+  - component: {fileID: 1074061631}
   m_Layer: 5
   m_Name: BackToHome
   m_TagString: Untagged
@@ -589,6 +530,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074061626}
   m_CullTransparentMesh: 0
+--- !u!114 &1074061631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074061626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f86695f1d66edfd42bb06d563688baa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameSound: sfx_click
 --- !u!1 &1569846493
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +694,7 @@ MonoBehaviour:
   m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
+  m_ShowMaskGraphic: 0
 --- !u!1 &1927553105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,19 +1094,19 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1327766807, guid: 4c92a079e55e03a4cabc56de90e44d74, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1327766807, guid: 4c92a079e55e03a4cabc56de90e44d74, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5996181102316232077, guid: 4c92a079e55e03a4cabc56de90e44d74,
         type: 3}
       propertyPath: mLocalizeTarget
       value: 
       objectReference: {fileID: 698663948}
-    - target: {fileID: 1327766807, guid: 4c92a079e55e03a4cabc56de90e44d74, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 351624772}
-    - target: {fileID: 1327766807, guid: 4c92a079e55e03a4cabc56de90e44d74, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 351624772}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c92a079e55e03a4cabc56de90e44d74, type: 3}
 --- !u!114 &5996181102316232078 stripped

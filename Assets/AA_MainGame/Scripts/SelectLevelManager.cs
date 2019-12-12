@@ -18,14 +18,11 @@ public class SelectLevelManager : MonoBehaviour, IEnhancedScrollerDelegate
         _scroller.Delegate = this;
     }
 
-    private void Start()
-    {
-    }
-
     public void ClicBack()
     {
         Firebase.Analytics.FirebaseAnalytics.LogEvent("menu_level_c_back");
-        SceneManager.LoadScene(GameConstant.SELECT_CHAPTER_SCENE);
+        LoadingPopup.singleton.ShowLoading(null, null,
+            (() => { SceneManager.LoadScene(GameConstant.SELECT_CHAPTER_SCENE); }));
     }
 
 

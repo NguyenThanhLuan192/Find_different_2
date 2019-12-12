@@ -3,6 +3,7 @@ using System.Collections;
 using EnhancedUI.EnhancedScroller;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using IceFoxStudio;
 
 public class SelectChapterManager : MonoBehaviour, IEnhancedScrollerDelegate
 {
@@ -19,7 +20,8 @@ public class SelectChapterManager : MonoBehaviour, IEnhancedScrollerDelegate
     public void ClicBackHome()
     {
         Firebase.Analytics.FirebaseAnalytics.LogEvent("menu_chapter_c_back");
-        SceneManager.LoadScene(GameConstant.HOME_SCENE);
+        LoadingPopup.singleton.ShowLoading(null, null,
+            (() => { SceneManager.LoadScene(GameConstant.HOME_SCENE); }));
     }
     
     public int GetNumberOfCells(EnhancedScroller scroller)

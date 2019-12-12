@@ -20,11 +20,12 @@ namespace IceFoxStudio
         private TweenerCore<Vector3, Vector3, VectorOptions> _tween;
         private Vector3 _tempStart;
         private Vector3 _tempEnd;
+        private IDisposable _dispose;
 
         private void Awake()
         {
             gameObject.SetActive(false);
-            MessageBroker.Default.Receive<ShowEffectSelectCorrectMessage>().TakeUntilDestroy(gameObject)
+            _dispose = MessageBroker.Default.Receive<ShowEffectSelectCorrectMessage>().TakeUntilDestroy(gameObject)
                 .Subscribe(mes =>
                 {
                     gameObject.SetActive(true);
@@ -49,6 +50,17 @@ namespace IceFoxStudio
                     _tempStart = Vector3.zero;
                     _tempEnd = Vector3.zero;
                 });
+        }
+
+        private void OnDisable()
+        {
+            _tween?.Kill();
+        }
+
+        private void OnDestroy()
+        {
+            _tween?.Kill();
+            _dispose?.Dispose();
         }
     }
 }

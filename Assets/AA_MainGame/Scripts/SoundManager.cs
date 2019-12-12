@@ -79,7 +79,7 @@ namespace IceFoxStudio
         AudioClip getMusicClipByName(string name)
         {
             //var clip = musicClips.FirstOrDefault(s => s.name == name);
-            var clip = Resources.Load<AudioClip>("Sounds/" + name);
+            var clip = Resources.Load<AudioClip>("sounds/" + name);
 
             if (clip == null)
                 Debug.LogError("Dont Find MUSIC Clip With Name = " + name);

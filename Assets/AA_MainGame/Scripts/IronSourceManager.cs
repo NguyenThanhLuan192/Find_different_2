@@ -16,9 +16,25 @@ namespace IceFoxStudio
         public Action handlerShowAd { get; set; }
         public Action handlerCloseAd { get; set; }
 
+        #if UNITY_ANDROID
+                public const string YOUR_APP_KEY = "aba224d5";
+
+#elif UNITY_IOS
+        public const string YOUR_APP_KEY = "ac07b8f5";
+      
+#else
+        public const string YOUR_APP_KEY = "example";
+#endif
+        
         public void Init()
         {
-            Admob = AdmobData.singleton;
+            IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.REWARDED_VIDEO);
+            IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.INTERSTITIAL);
+            IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.OFFERWALL);
+            IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.BANNER);
+
+            IronSource.Agent.validateIntegration();
+            
             RequestBanner();
             RequestInterstitial();
             RequestRewardedAd();
@@ -84,7 +100,6 @@ namespace IceFoxStudio
         {
             
             IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
-            IronSource.Agent.loadBanner(new IronSourceBannerSize(320, 50), IronSourceBannerPosition.BOTTOM);
             
             IronSourceEvents.onBannerAdLoadedEvent += BannerAdLoadedEvent;
             IronSourceEvents.onBannerAdLoadFailedEvent += BannerAdLoadFailedEvent;        
@@ -96,7 +111,7 @@ namespace IceFoxStudio
 
         private void BannerAdLoadedEvent()
         {
-            isloadBanner = false;
+            isloadBanner = true;
             if (conditionShowBanner.Invoke())
             {
                 Debug.Log("SHOW BANNER");

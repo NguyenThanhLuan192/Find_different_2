@@ -25,7 +25,6 @@ namespace IceFoxStudio
         public Transform mask_1;
         public Transform mask_2;
         private Tweener _tweenerHint;
-        [SerializeField] private Transform scopeHint;
         private IDisposable _disposable4;
         [SerializeField] private Ease _easeType;
         [SerializeField] private float _duration = 0.5f;
@@ -66,20 +65,6 @@ namespace IceFoxStudio
             _timeTxt.text = time.GetTimeToMMSS();
         }
 
-        public void SetEffectHint(Vector3 pos)
-        {
-            _tweenerHint?.Kill();
-            scopeHint.gameObject.SetActive(true);
-            scopeHint.transform.position = _startPosHintMove.position;
-            _tweenerHint = scopeHint.transform.DOMove(pos, _duration).SetEase(_easeType).OnComplete(() =>
-            {
-                _disposable4?.Dispose();
-                _disposable4 = Observable.Timer(TimeSpan.FromSeconds(1)).TakeUntilDestroy(gameObject).Subscribe(_ =>
-                {
-                    scopeHint.gameObject.SetActive(false);
-                });
-            });
-        }
 
         public void UpdateMyHint(int number)
         {

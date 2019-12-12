@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Facebook.Unity;
 using I2.Loc;
 using IceFoxStudio;
@@ -38,7 +39,18 @@ public class SettingPopup : PopupBase
     {
         Observable.Timer(TimeSpan.FromSeconds(0.1f)).Subscribe(_ =>
         {
-            _dropdown.captionText.text = LocalizationManager.CurrentLanguage;
+            var language = LocalizationManager.CurrentLanguage;
+
+            _dropdown.options.FirstOrDefault(data =>
+            {
+                
+                if (data.text == language)
+                {
+                    _dropdown.captionText.text = data.text;
+                    _dropdown.captionImage.sprite = data.image;
+                }
+                return data.text == language;
+            });
         });
         base.OnEnable();
     }
@@ -87,8 +99,15 @@ public class SettingPopup : PopupBase
         if (LocalizationManager.HasLanguage(_language))
         {
             LocalizationManager.CurrentLanguage = _language;
+            _dropdown.captionImage.sprite = _dropdown.options[_dropdown.value].image;
         }
 
         Firebase.Analytics.FirebaseAnalytics.LogEvent("setting_p_c_language_" + LocalizationManager.CurrentLanguage);
     }
+
+    public void ClickRestore()
+    {
+        IapManager.singleton.RestorePurchases();
+    }
+        
 }

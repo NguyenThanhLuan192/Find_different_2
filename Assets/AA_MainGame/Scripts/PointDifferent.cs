@@ -1,4 +1,7 @@
 ﻿using System;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,12 +14,14 @@ namespace IceFoxStudio
         public Image touch;
         public Image circleRight;
         public bool HasPickUp { get; set; }
-        public Action<string,Vector3> cb;
+        public Action<string, Vector3> cb;
         public Image itemImg;
         public Sprite item1, item2;
         public bool isClue;
         private Action _cbTutorial;
         private bool _isTutorial;
+        [SerializeField] private float _duration = 0.5f;
+        [SerializeField] private Tweener _tweener;
 
         private void Awake()
         {
@@ -35,16 +40,25 @@ namespace IceFoxStudio
 
         public void ClickPoint()
         {
-//            Firebase.Analytics.FirebaseAnalytics.LogEvent("game_play_select_correct_lvl_"+GameData.Singleton.CurrentLevelPlay.Value);
-         //   if (TutorialManager.singleton!= null && !TutorialManager.singleton.CompleteTutorialFindPointDifferent && !_isTutorial) return;
+               if (TutorialManager.singleton!= null && !TutorialManager.singleton.CompleteTutorialFindPointDifferent && !_isTutorial) return;
             _isTutorial = false;
-            _cbTutorial?.Invoke();    
+            _cbTutorial?.Invoke();
             if (_cbTutorial != null) _cbTutorial = null;
-            
-            if(HasPickUp) return;
-            
+
+            if (HasPickUp) return;
+
             HasPickUp = true;
-            cb?.Invoke(gameObject.name,transform.position);
+            cb?.Invoke(gameObject.name, transform.position);
+            
+            circleRight.gameObject.SetActive(true);
+            circleRight.enabled = true;
+            circleRight.type = Image.Type.Filled;
+            _tweener?.Kill();
+            circleRight.fillAmount = 0;
+            _tweener = DOTween.To(() => circleRight.fillAmount, value => circleRight.fillAmount = value, 1f, _duration)
+                .SetEase(Ease.Linear)
+                .OnComplete(
+                    () => {  });
 
             btn.enabled = false;
         }
@@ -54,7 +68,7 @@ namespace IceFoxStudio
             touch.color = new Color(1, 1, 1, on ? 0 : 0);
 
             itemImg.enabled = true;
-            
+
             if (item1 != null && on)
             {
                 itemImg.sprite = item1;
@@ -75,6 +89,16 @@ namespace IceFoxStudio
             _isTutorial = true;
             circleRight.gameObject.SetActive(_isTutorial);
             circleRight.enabled = _isTutorial;
+        }
+        
+        private void OnDisable()
+        {
+            _tweener?.Kill();
+        }
+
+        private void OnDestroy()
+        {
+            _tweener?.Kill();
         }
     }
 

@@ -27,13 +27,12 @@ public class InitGame : MonoBehaviour
             () => true,
             () =>
             {
-                Debug.Log(chapterDatas[0].highestLvlUnlock + " - " + (chapterDatas[0].highestLvlUnlock > 5));
-                return chapterDatas[0].highestLvlUnlock > 5;
+                return chapterDatas[0].highestLvlUnlock > 19;
             },
-            () => chapterDatas[1].highestLvlUnlock > 5,
-            () => chapterDatas[2].highestLvlUnlock > 5,
-            () => chapterDatas[3].highestLvlUnlock > 5,
-            () => chapterDatas[4].highestLvlUnlock > 5
+            () => chapterDatas[1].highestLvlUnlock > 19,
+            () => chapterDatas[2].highestLvlUnlock > 19,
+            () => chapterDatas[3].highestLvlUnlock > 19,
+            () => chapterDatas[4].highestLvlUnlock > 19
         };
 
         for (int i = 0; i < chapterDatas.Count; i++)

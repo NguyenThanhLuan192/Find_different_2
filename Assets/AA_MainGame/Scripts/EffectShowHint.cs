@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UniRx;
@@ -15,16 +16,21 @@ namespace IceFoxStudio
     {
         [SerializeField] private Transform startPos;
         [SerializeField] private float _duration = 1;
-        private TweenerCore<Vector3, Vector3, VectorOptions> _tween;
+        private Tweener _tween;
+        private IDisposable _dispose;
 
         private void Awake()
         {
+            Debug.Log("Effect Show Hint " + gameObject.name);
             gameObject.SetActive(false);
-            MessageBroker.Default.Receive<ShowEffectHintMessage>().TakeUntilDestroy(gameObject).Subscribe(mes =>
-            {
-                gameObject.SetActive(true);
-                HandleHint(mes.Pos);
-            });
+            _dispose = MessageBroker.Default.Receive<ShowEffectHintMessage>().TakeUntilDestroy(gameObject).Subscribe(
+                mes =>
+                {
+                    Debug.Log("Effect Show Hint");
+                    gameObject.SetActive(true);
+                    HandleHint(mes.Pos);
+                });
+            gameObject.SetActive(false);
         }
 
         private void HandleHint(Vector3 objPos)
@@ -35,5 +41,17 @@ namespace IceFoxStudio
             _tween?.Kill();
             _tween = transform.DOMove(objPos, duration).OnComplete(() => gameObject.SetActive(false));
         }
+
+        private void OnDisable()
+        {
+            _tween?.Kill();
+        }
+
+        private void OnDestroy()
+        {
+            _dispose?.Dispose();
+            _tween?.Kill();
+        }
     }
+
 }

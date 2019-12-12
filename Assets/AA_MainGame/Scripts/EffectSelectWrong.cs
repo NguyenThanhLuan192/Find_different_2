@@ -16,11 +16,12 @@ namespace IceFoxStudio
         [SerializeField] Image _imgWrong;
         [SerializeField] private float _duration;
         private Tweener _tweener;
+        private IDisposable _dispose;
 
         private void Awake()
         {
             gameObject.SetActive(false);
-            MessageBroker.Default.Receive<SelectWrongMessage>().TakeUntilDestroy(gameObject).Subscribe(mes =>
+          _dispose =  MessageBroker.Default.Receive<SelectWrongMessage>().TakeUntilDestroy(gameObject).Subscribe(mes =>
             {
                 gameObject.SetActive(true);
                 HandleWrong(mes.position);
@@ -32,9 +33,20 @@ namespace IceFoxStudio
             transform.position = pos;
             _tweener?.Kill();
             _imgWrong.fillAmount = 0;
-            _tweener = DOTween.To(() => _imgWrong.fillAmount, value => _imgWrong.fillAmount = value, 1f, _duration)
+            _tweener = DOTween.To(() => _imgWrong.fillAmount, value => _imgWrong.fillAmount = value, 1f, _duration).SetEase(Ease.Linear)
                 .OnComplete(
                     () => { gameObject.SetActive(false); });
+        }
+
+        private void OnDisable()
+        {
+            _tweener?.Kill();
+        }
+
+        private void OnDestroy()
+        {
+            _tweener?.Kill();
+            _dispose?.Dispose();
         }
     }
 

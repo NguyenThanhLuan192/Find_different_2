@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 
-/* Name:  Find Difference Your Life
-Package: differences.find.your.life
+/* 
+Name:  Find Difference Your Life
+Package: differences.find.your.life.com
 App Facebook: 531083300778753
 
 
 Dùng mediation ironsource:, tích hợp thêm Facebook, admob, unity
 
-Find Difference Your Life 
+Find The Difference Your Life 
 APP KEY: aba224d5
 
 Access Key: 29b3488d8f71 
@@ -15,12 +16,56 @@ Secret Key: da307a2f86a3ca8671fcf8eb244398cb
 Refresh Token: 365e124e417e692ccd6efaf0210a63e5
  Advertiser Password / ID 51758074 / 119503
 
-———
+———admob————
 
-AppID: 
-Banner: 
-Interstitial: 
-Video: 
+AppID: ca-app-pub-1667805177474426~6756690242  
+Banner: ca-app-pub-1667805177474426/5443608579
+Interstitial: ca-app-pub-1667805177474426/6706032432
+Video: ca-app-pub-1667805177474426/4050635858
+
+
+——Unity———
+Game:  3385432
+rewardedVideo
+interstitial
+
+——FAN———
+
+--------IOS------------
+
+Name:  Find Difference Your Life
+Package: differences.find.your.life
+App Facebook: 531083300778753
+
+
+Dùng mediation ironsource:, tích hợp thêm Facebook, admob, unity
+
+Find Difference Your Life 
+APP KEY: ac07b8f5
+
+Access Key: 29b3488d8f71
+ Secret Key: da307a2f86a3ca8671fcf8eb244398cb
+Refresh Token: 365e124e417e692ccd6efaf0210a63e5 
+Advertiser Password:   ID 51758074 / 119503
+
+———admob————
+AppID:   ca-app-pub-1667805177474426~1906482962 
+Banner:  ca-app-pub-1667805177474426/8418198226
+Interstitial:  ca-app-pub-1667805177474426/3165871545
+Video:  ca-app-pub-1667805177474426/8366227330
+
+
+——Unity———
+Game: 3385433
+rewardedVideo
+interstitial
+
+——FAN———
+
+
+This app is using mediation
+
+
    */
 
 namespace IceFoxStudio

@@ -8,25 +8,24 @@
     <package>com.facebook.android:facebook-core:[5,6)</package>
     <package>com.facebook.android:facebook-login:[5,6)</package>
     <package>com.facebook.android:facebook-share:[5,6)</package>
-    <package>com.google.firebase:firebase-analytics:17.0.0</package>
-    <package>com.google.firebase:firebase-analytics-unity:6.2.2</package>
-    <package>com.google.firebase:firebase-app-unity:6.2.2</package>
-    <package>com.google.firebase:firebase-common:18.0.0</package>
-    <package>com.google.firebase:firebase-iid:[19.0.1]</package>
+    <package>com.google.firebase:firebase-analytics:17.2.1</package>
+    <package>com.google.firebase:firebase-analytics-unity:6.8.0</package>
+    <package>com.google.firebase:firebase-app-unity:6.8.0</package>
+    <package>com.google.firebase:firebase-common:19.3.0</package>
     <package>com.parse.bolts:bolts-android:1.4.0</package>
   </packages>
   <files>
-    <file>Assets/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/6.2.2/firebase-analytics-unity-6.2.2.aar</file>
-    <file>Assets/Firebase/m2repository/com/google/firebase/firebase-app-unity/6.2.2/firebase-app-unity-6.2.2.aar</file>
+    <file>Assets/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/6.8.0/firebase-analytics-unity-6.8.0.aar</file>
+    <file>Assets/Firebase/m2repository/com/google/firebase/firebase-app-unity/6.8.0/firebase-app-unity-6.8.0.aar</file>
   </files>
   <settings>
-    <setting name="androidAbis" value="armeabi-v7a,x86" />
-    <setting name="bundleId" value="differences.find.your.life" />
+    <setting name="androidAbis" value="arm64-v8a,armeabi-v7a" />
+    <setting name="bundleId" value="differences.find.your.life.com" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradleTemplateEnabled" value="True" />
     <setting name="installAndroidPackages" value="True" />
-    <setting name="packageDir" value="Assets\Plugins\Android" />
+    <setting name="packageDir" value="Assets/Plugins/Android" />
     <setting name="patchAndroidManifest" value="True" />
     <setting name="patchMainTemplateGradle" value="True" />
     <setting name="projectExportEnabled" value="False" />

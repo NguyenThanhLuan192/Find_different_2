@@ -11,12 +11,14 @@ public class GameOverPopup : PopupBase
         {
             enablePopupWhenStart = true;
             gameObject.SetActive(true);
+            SoundManager.singleton.PlaySound("sfx_lose");
         });
     }
 
     public void ClickRetry()
     {
         Firebase.Analytics.FirebaseAnalytics.LogEvent("game_over_p_c_retry_lvl_"+GameData.Singleton.CurrentLevelPlay.Value);
-        SceneManager.LoadScene(GameConstant.GAME_PLAY_SCENE);
+        LoadingPopup.singleton.ShowLoading(null, null,
+            (() => { SceneManager.LoadScene(GameConstant.GAME_PLAY_SCENE); }));
     }
 }

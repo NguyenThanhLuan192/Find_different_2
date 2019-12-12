@@ -1,4 +1,6 @@
-﻿using IceFoxStudio;
+﻿using I2.Loc;
+using IceFoxStudio;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,6 +11,8 @@ internal class LevelObject : MonoBehaviour
     [SerializeField] private Sprite starOn;
     [SerializeField] private Sprite starOff;
     [SerializeField] private Image _imgLock;
+    [SerializeField] private TextMeshProUGUI _lvlTxt;
+    [SerializeField] private Image _mainBg;
     private int _lvl;
     private bool _isUnlock;
 
@@ -21,7 +25,19 @@ internal class LevelObject : MonoBehaviour
             stars[i].sprite = data.numberStar > i ? starOn : starOff;
         }
 
+        if (_isUnlock)
+        {
+            _mainBg.enabled = true;
+            _mainBg.sprite =
+                Resources.Load<Sprite>("texture/level/" + GameData.Singleton.CurrentChapterPlay + "/" + _lvl);
+        }
+        else
+        {
+            _mainBg.enabled = false;
+        }
+
         _imgLock.enabled = !_isUnlock;
+        _lvlTxt.text = string.Format(_lvlTxt.text, _lvl + 1);
     }
 
     public void ClickPlay()
@@ -31,7 +47,7 @@ internal class LevelObject : MonoBehaviour
 
         if (!_isUnlock) return;
         GameData.Singleton.CurrentLevelPlay.Value = _lvl;
-
-        SceneManager.LoadScene(GameConstant.GAME_PLAY_SCENE);
+        LoadingPopup.singleton.ShowLoading(null, null,
+            (() => { SceneManager.LoadScene(GameConstant.GAME_PLAY_SCENE); }));
     }
 }

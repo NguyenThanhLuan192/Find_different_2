@@ -18,16 +18,23 @@ namespace IceFoxStudio
         private int amountPointDifferent;
         [SerializeField] private GamePlayUIManager uiManager;
         private int _countFindPoint;
+        private bool _useHint;
+
+        private int _currentChapter;
+        private int _currentLevel;
+
 
         private void Awake()
         {
+            _currentChapter = GameData.Singleton.CurrentChapterPlay;
+            _currentLevel = GameData.Singleton.CurrentLevelPlay.Value;
             MessageBroker.Default.Receive<SelectWrongMessage>().TakeUntilDestroy(gameObject).Subscribe(mes =>
             {
                 if (_countFindPoint >= amountPointDifferent) return;
 
                 Firebase.Analytics.FirebaseAnalytics.LogEvent("game_play_select_wrong_chapter" +
-                                                              GameData.Singleton.CurrentChapterPlay + "_lvl_" +
-                                                              GameData.Singleton.CurrentLevelPlay);
+                                                              _currentChapter + "_lvl_" +
+                                                              _currentLevel);
 
                 _coolTime -= 10;
                 ConvertTime(_coolTime);
@@ -45,18 +52,21 @@ namespace IceFoxStudio
         private void Start()
         {
             LoadLevel();
-            SoundManager.singleton?.PlayMusic("bg_game_play_online");
-            Observable.EveryUpdate().TakeUntilDestroy(gameObject)
+            Observable.EveryUpdate().Where(l => isPause.Value == false).TakeUntilDestroy(gameObject)
                 .Subscribe(_ => { HandleZoomInOut(); });
             HandleCoolTimeGamePlay();
+
+            HandleShowFreeScopeHint();
+
+            HandleCheckTutorial();
         }
 
 
         public void LoadLevel()
         {
+            _useHint = false;
             _countFindPoint = 0;
-            var path = "chapter" + GameData.Singleton.CurrentChapterPlay +
-                       "/Level" + GameData.Singleton.CurrentLevelPlay;
+            var path = "chapter" + _currentChapter + "/Level" + _currentLevel;
             var objectLvl = Resources.Load(path) as GameObject;
             uiManager.ClearLvl();
             var image1 = Instantiate(objectLvl, uiManager.mask_1);
@@ -74,6 +84,23 @@ namespace IceFoxStudio
             pic2.SetPoint(false, HandleCbClick);
         }
 
+        void HandleCheckTutorial()
+        {
+            if (TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;
+            pic1.points[0]
+                .SetDifferentPointTutorial(() =>
+                    {
+                        MessageBroker.Default.Publish(new ShowHandTutorialMessage() {active = false});
+                        TutorialManager.singleton.CompleteTutorialFindPointDifferent = true;
+                    }
+                );
+
+            pic2.points[0]
+                .SetDifferentPointTutorial(null);
+            MessageBroker.Default.Publish(new ShowHandTutorialMessage()
+                {active = true, pos = pic1.points[0].transform.position});
+        }
+        
         void HandleCbClick(string name, Vector3 pos)
         {
             var point = pic1.points.SingleOrDefault(p => !p.HasPickUp && p.gameObject.name == name);
@@ -99,13 +126,17 @@ namespace IceFoxStudio
                     }
                 }
 
-
+                HandleShowFreeScopeHint();
                 _countFindPoint++;
+
+                ChapterDataManager.singleton.chapterDatas[_currentChapter].levelDatas[_currentLevel].numberStar =
+                    _countFindPoint;
+
                 if (_countFindPoint >= amountPointDifferent)
                 {
                     Firebase.Analytics.FirebaseAnalytics.LogEvent("game_play_select_correct_all_chapter" +
-                                                                  GameData.Singleton.CurrentChapterPlay + "_lvl_" +
-                                                                  GameData.Singleton.CurrentLevelPlay);
+                                                                  _currentChapter + "_lvl_" +
+                                                                  _currentLevel);
                     HandleLoadLevelLevel();
                 }
             }
@@ -114,9 +145,9 @@ namespace IceFoxStudio
             {
                 MessageBroker.Default.Publish(new ShowEffectSelectCorrectMessage() {startPos = pos});
                 MessageBroker.Default.Publish(new ShowStarsMessage());
-                _count++;
             }
 
+            _count++;
             if (_count == 2)
             {
                 _count = 0;
@@ -136,9 +167,29 @@ namespace IceFoxStudio
             });
         }
 
+        void HandleShowFreeScopeHint()
+        {
+            _disposableFreeScope?.Dispose();
+            _disposableFreeScope = Observable.Interval(TimeSpan.FromSeconds(_durationFreeScope))
+                .TakeUntilDestroy(gameObject)
+                .Subscribe(_ =>
+                {
+                    var point = pic2.points.FirstOrDefault(p => !p.HasPickUp);
+                    if (point != null)
+                        MessageBroker.Default.Publish(new FreeHintMessage() {pos = point.transform.position});
+                });
+        }
 
         private void HandleUseHint()
         {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                MessageBroker.Default.Publish(new ShowNotifyTxtMessage() {});
+                return;
+            }
+            
+            
+            _useHint = true;
             var point = pic2.points.FirstOrDefault(p => !p.HasPickUp);
 
             if (point != null)
@@ -176,7 +227,7 @@ namespace IceFoxStudio
             isPause.Value = true;
             Observable.Timer(TimeSpan.FromSeconds(1)).TakeUntilDestroy(gameObject).Subscribe(_ =>
             {
-                MessageBroker.Default.Publish(new ShowWinPopupMessage() { });
+                MessageBroker.Default.Publish(new ShowWinPopupMessage() {isShowVideo = _useHint});
             });
         }
 
@@ -202,12 +253,14 @@ namespace IceFoxStudio
         public float heighImage = 624;
         private Vector3 firstPosImage;
         private int _count;
+        private IDisposable _disposableFreeScope;
+        [SerializeField] private float _durationFreeScope = 20;
 
 
         public void HandleZoomInOut()
         {
-            /* if (TutorialManager.singleton != null &&
-                 !TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;*/
+             if (TutorialManager.singleton != null &&
+                 !TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;
 
 #if UNITY_EDITOR
             if (Input.GetMouseButtonDown(2))

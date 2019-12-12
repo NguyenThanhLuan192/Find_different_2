@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1
+  m_ShowMaskGraphic: 0
 --- !u!1 &368730955
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 368730959}
   - component: {fileID: 368730958}
   - component: {fileID: 368730957}
+  - component: {fileID: 368730960}
   m_Layer: 5
   m_Name: BackToChapter
   m_TagString: Untagged
@@ -404,6 +405,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368730955}
   m_CullTransparentMesh: 0
+--- !u!114 &368730960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368730955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f86695f1d66edfd42bb06d563688baa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameSound: sfx_click
 --- !u!1 &541707459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,6 +1439,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307354219809006796, guid: d1d9cbde85e4b5e44b7b2ea972b58605,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307354219809006796, guid: d1d9cbde85e4b5e44b7b2ea972b58605,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307354221338923975, guid: d1d9cbde85e4b5e44b7b2ea972b58605,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307354221338923975, guid: d1d9cbde85e4b5e44b7b2ea972b58605,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307354221518398673, guid: d1d9cbde85e4b5e44b7b2ea972b58605,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5307354221518398673, guid: d1d9cbde85e4b5e44b7b2ea972b58605,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1d9cbde85e4b5e44b7b2ea972b58605, type: 3}

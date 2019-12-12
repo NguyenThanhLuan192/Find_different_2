@@ -27,8 +27,8 @@ namespace IceFoxStudio
 
         public void OnPointerClick(PointerEventData eventData)
         {
-//            if (TutorialManager.singleton != null && !TutorialManager.singleton.CompleteTutorialFindPointDifferent ||
-  //              _pause) return;
+            if (TutorialManager.singleton != null && !TutorialManager.singleton.CompleteTutorialFindPointDifferent ||
+                _pause) return;
 
             Debug.Log("OnPointerClick ");
 
@@ -39,8 +39,8 @@ namespace IceFoxStudio
 
         public void OnPointerUp(PointerEventData eventData)
         {
-         //   if (TutorialManager.singleton != null &&
-          //      !TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;
+            if (TutorialManager.singleton != null &&
+                !TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;
             Debug.Log("OnPointer UP");
         }
     }

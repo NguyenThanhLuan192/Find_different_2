@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/AA_MainGame/Scenes/Home.unity
+    guid: 08ec4363fc22c0a4f84cd6022516253d
+  - enabled: 1
+    path: Assets/AA_MainGame/Scenes/GamePlay.unity
+    guid: 3798d0c3d90a4104fb5d7d6fcf965870
+  - enabled: 1
+    path: Assets/AA_MainGame/Scenes/SelectChapter.unity
+    guid: 38bfa2d0f70990540848251a3aade812
+  - enabled: 1
+    path: Assets/AA_MainGame/Scenes/SelectLevel.unity
+    guid: 09c5c6a9abf40174384935c259fc0559
   m_configObjects: {}

@@ -47,13 +47,22 @@ public class PausePopup : PopupBase
    public void ClickHome()
    {
       Firebase.Analytics.FirebaseAnalytics.LogEvent("pause_p_c_home");
-      SceneManager.LoadScene(GameConstant.HOME_SCENE);
+      
+      AdsManager.singleton.ShowInterstitial(() =>
+      {
+         LoadingPopup.singleton.ShowLoading(null, null,
+            (() => { SceneManager.LoadScene(GameConstant.HOME_SCENE); }));
+      });
    }
 
    public void ClickSelectLvl()
    {
       Firebase.Analytics.FirebaseAnalytics.LogEvent("pause_p_c_select_lvl");
-      SceneManager.LoadScene(GameConstant.SELECT_LEVEL_SCENE);
+      AdsManager.singleton.ShowInterstitial(() =>
+      {
+         LoadingPopup.singleton.ShowLoading(null, null,
+            (() => { SceneManager.LoadScene(GameConstant.SELECT_LEVEL_SCENE); }));
+      });
    }
 
    public void ClickResume()

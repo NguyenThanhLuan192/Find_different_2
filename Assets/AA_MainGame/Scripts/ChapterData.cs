@@ -16,8 +16,7 @@ public class ChapterData
     }
 
     public List<LevelData> levelDatas;
-    [HideInInspector]
-    public int highestLvlUnlock => PlayerPrefs.GetInt("HighestLvlOfChapter" + idChapter,0);
+    [HideInInspector] public int highestLvlUnlock => PlayerPrefs.GetInt("HighestLvlOfChapter" + idChapter, 0);
 }
 
 [Serializable]
@@ -29,6 +28,13 @@ public class LevelData
     public int numberStar
     {
         get { return PlayerPrefs.GetInt("StarLvl" + lvl + "OfChapter" + idChapter); }
+        set
+        {
+            if (PlayerPrefs.GetInt("StarLvl" + lvl + "OfChapter" + idChapter) < value)
+            {
+                PlayerPrefs.SetInt("StarLvl" + lvl + "OfChapter" + idChapter, value);
+            }
+        }
     }
 
     public bool isUnlock
