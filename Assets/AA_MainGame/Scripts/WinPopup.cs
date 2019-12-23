@@ -1,6 +1,7 @@
 ﻿using System;
 using IceFoxStudio;
 using UniRx;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WinPopup : PopupBase
@@ -10,6 +11,10 @@ public class WinPopup : PopupBase
         base.Awake();
         MessageBroker.Default.Receive<ShowWinPopupMessage>().TakeUntilDestroy(gameObject).Subscribe(mes =>
         {
+            
+            Debug.Log("ShowWinPopupMessage "+mes.isShowVideo);
+            Debug.Log("ShowWinPopupMessage "+AdsManager.singleton.IsReadyRewardVideo());
+            
             Action cb = () =>
             {
                 enablePopupWhenStart = true;

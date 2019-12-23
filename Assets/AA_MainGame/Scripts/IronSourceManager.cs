@@ -28,6 +28,8 @@ namespace IceFoxStudio
         
         public void Init()
         {
+            Debug.Log("Init ADs " +YOUR_APP_KEY);
+
             IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.REWARDED_VIDEO);
             IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.INTERSTITIAL);
             IronSource.Agent.init (YOUR_APP_KEY, IronSourceAdUnits.OFFERWALL);
@@ -42,21 +44,29 @@ namespace IceFoxStudio
 
         public bool IsReadyBanner()
         {
+            Debug.Log("IsReadyIntersitial " +isloadBanner);
+
             return  isloadBanner;
         }
 
         public bool IsReadyIntersitial()
         {
+            Debug.Log("IsReadyIntersitial " + IronSource.Agent.isInterstitialReady());
+
             return IronSource.Agent.isInterstitialReady();
         }
 
         public bool IsReadyVideo()
         {
+            Debug.Log("IsReadyVideo " + IronSource.Agent.isRewardedVideoAvailable());
+
             return IronSource.Agent.isRewardedVideoAvailable();
         }
 
         public void ShowBanner()
         {
+            Debug.Log("ShowBanner ");
+
             if (conditionShowBanner.Invoke())
             {
                 IronSource.Agent.displayBanner();
@@ -87,6 +97,7 @@ namespace IceFoxStudio
 
         public void HiderBanner()
         {
+            Debug.Log("HiderBanner ");
             IronSource.Agent.hideBanner();
         }
 
@@ -98,7 +109,8 @@ namespace IceFoxStudio
 
         private void RequestBanner()
         {
-            
+            Debug.Log("RequestBanner ");
+
             IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
             
             IronSourceEvents.onBannerAdLoadedEvent += BannerAdLoadedEvent;
@@ -111,6 +123,7 @@ namespace IceFoxStudio
 
         private void BannerAdLoadedEvent()
         {
+            Debug.Log("BannerAdLoadedEvent ");
             isloadBanner = true;
             if (conditionShowBanner.Invoke())
             {
@@ -127,27 +140,29 @@ namespace IceFoxStudio
         private void BannerAdLoadFailedEvent(IronSourceError obj)
         {
             isloadBanner = false;
-
+            Debug.Log("BannerAdLoadFailedEvent " + obj.getDescription());
         }
 
         private void BannerAdClickedEvent()
         {
-           
+            Debug.Log("BannerAdClickedEvent");
         }
 
         private void BannerAdScreenPresentedEvent()
         {
-            
+            Debug.Log("BannerAdScreenPresentedEvent");
         }
 
         private void BannerAdScreenDismissedEvent()
         {
-            
+            Debug.Log("BannerAdScreenDismissedEvent");
+
         }
 
         private void BannerAdLeftApplicationEvent()
         {
-            
+            Debug.Log("BannerAdLeftApplicationEvent");
+
         }
 
         #endregion
@@ -157,6 +172,8 @@ namespace IceFoxStudio
 
         private void RequestInterstitial()
         {
+            Debug.Log("RequestInterstitial");
+
             IronSourceEvents.onInterstitialAdReadyEvent += InterstitialAdReadyEvent;
             IronSourceEvents.onInterstitialAdLoadFailedEvent += InterstitialAdLoadFailedEvent;        
             IronSourceEvents.onInterstitialAdShowSucceededEvent += InterstitialAdShowSucceededEvent; 
@@ -169,6 +186,8 @@ namespace IceFoxStudio
 
         private void InterstitialAdClosedEvent()
         {
+            Debug.Log("InterstitialAdClosedEvent");
+
             handlerCloseAd?.Invoke();
             cbInterstitial?.Invoke();
             cbInterstitial = null;
@@ -176,28 +195,33 @@ namespace IceFoxStudio
 
         private void InterstitialAdOpenedEvent()
         {
+            Debug.Log("InterstitialAdOpenedEvent");
             handlerShowAd?.Invoke();
         }
 
         private void InterstitialAdClickedEvent()
         {
+            Debug.Log("InterstitialAdClickedEvent");
         }
 
         private void InterstitialAdShowFailedEvent(IronSourceError error)
         {
+            Debug.Log("InterstitialAdShowFailedEvent " + error.getDescription());
         }
 
         private void InterstitialAdShowSucceededEvent()
-        {
+        {         
+            Debug.Log("InterstitialAdShowSucceededEvent");
         }
 
         private void InterstitialAdLoadFailedEvent(IronSourceError fail)
         {
+            Debug.Log("InterstitialAdLoadFailedEvent " + fail.getDescription());
         }
 
         private void InterstitialAdReadyEvent()
         {
-            
+            Debug.Log("InterstitialAdReadyEvent");
         }
 
         #endregion
@@ -208,6 +232,7 @@ namespace IceFoxStudio
 
         public void RequestRewardedAd()
         {
+            Debug.Log("RequestRewardedAd");
             IronSourceEvents.onRewardedVideoAdOpenedEvent += RewardedVideoAdOpenedEvent;
             IronSourceEvents.onRewardedVideoAdClosedEvent += RewardedVideoAdClosedEvent; 
             IronSourceEvents.onRewardedVideoAvailabilityChangedEvent += RewardedVideoAvailabilityChangedEvent;
@@ -219,11 +244,13 @@ namespace IceFoxStudio
 
         private void RewardedVideoAdOpenedEvent()
         {
+            Debug.Log("RewardedVideoAdOpenedEvent");
                         handlerShowAd?.Invoke();
         }
 
         private void RewardedVideoAdClosedEvent()
         {
+            Debug.Log("RewardedVideoAdClosedEvent");
             Firebase.Analytics.FirebaseAnalytics.LogEvent("watch_rewarded_video_complete_" + completeReward);
             cbRewardedVideo?.Invoke(completeReward);
             cbRewardedVideo = null;
@@ -234,25 +261,29 @@ namespace IceFoxStudio
 
         private void RewardedVideoAdEndedEvent()
         {
+            Debug.Log("RewardedVideoAdEndedEvent");
             completeReward = true;
         }
 
         private void RewardedVideoAdStartedEvent()
         {
+            Debug.Log("RewardedVideoAdStartedEvent");
         }
 
         private void RewardedVideoAvailabilityChangedEvent(bool available)
         {
-         
+            Debug.Log("RewardedVideoAvailabilityChangedEvent " + available);
         }
 
         private void RewardedVideoAdRewardedEvent(IronSourcePlacement placement)
         {
-           
+            Debug.Log("RewardedVideoAdRewardedEvent " + placement.getPlacementName());
+
         }
 
         private void RewardedVideoAdShowFailedEvent(IronSourceError err)
         {
+            Debug.Log("RewardedVideoAdShowFailedEvent " + err.getDescription());
         }
 
         #endregion

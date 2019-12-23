@@ -100,7 +100,7 @@ namespace IceFoxStudio
             MessageBroker.Default.Publish(new ShowHandTutorialMessage()
                 {active = true, pos = pic1.points[0].transform.position});
         }
-        
+
         void HandleCbClick(string name, Vector3 pos)
         {
             var point = pic1.points.SingleOrDefault(p => !p.HasPickUp && p.gameObject.name == name);
@@ -171,6 +171,7 @@ namespace IceFoxStudio
         {
             _disposableFreeScope?.Dispose();
             _disposableFreeScope = Observable.Interval(TimeSpan.FromSeconds(_durationFreeScope))
+                .Where(l => _currentLevel < 7)
                 .TakeUntilDestroy(gameObject)
                 .Subscribe(_ =>
                 {
@@ -182,13 +183,17 @@ namespace IceFoxStudio
 
         private void HandleUseHint()
         {
-            if (Application.internetReachability == NetworkReachability.NotReachable)
+            Debug.Log("HandleUseHint " + (Application.internetReachability == NetworkReachability.NotReachable));
+            Debug.Log("HandleUseHint " + (AdsManager.singleton.IsReadyRewardVideo()));
+
+            if (Application.internetReachability == NetworkReachability.NotReachable ||
+                !AdsManager.singleton.IsReadyRewardVideo())
             {
-                MessageBroker.Default.Publish(new ShowNotifyTxtMessage() {});
+                MessageBroker.Default.Publish(new ShowNotifyTxtMessage() { });
                 return;
             }
-            
-            
+
+
             _useHint = true;
             var point = pic2.points.FirstOrDefault(p => !p.HasPickUp);
 
@@ -259,8 +264,8 @@ namespace IceFoxStudio
 
         public void HandleZoomInOut()
         {
-             if (TutorialManager.singleton != null &&
-                 !TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;
+            if (TutorialManager.singleton != null &&
+                !TutorialManager.singleton.CompleteTutorialFindPointDifferent) return;
 
 #if UNITY_EDITOR
             if (Input.GetMouseButtonDown(2))
