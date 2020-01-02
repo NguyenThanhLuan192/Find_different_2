@@ -40,7 +40,8 @@ namespace IceFoxStudio
 
         public void ClickPoint()
         {
-               if (TutorialManager.singleton!= null && !TutorialManager.singleton.CompleteTutorialFindPointDifferent && !_isTutorial) return;
+            if (TutorialManager.singleton != null && !TutorialManager.singleton.CompleteTutorialFindPointDifferent &&
+                !_isTutorial) return;
             _isTutorial = false;
             _cbTutorial?.Invoke();
             if (_cbTutorial != null) _cbTutorial = null;
@@ -49,7 +50,7 @@ namespace IceFoxStudio
 
             HasPickUp = true;
             cb?.Invoke(gameObject.name, transform.position);
-            
+
             circleRight.gameObject.SetActive(true);
             circleRight.enabled = true;
             circleRight.type = Image.Type.Filled;
@@ -58,7 +59,7 @@ namespace IceFoxStudio
             _tweener = DOTween.To(() => circleRight.fillAmount, value => circleRight.fillAmount = value, 1f, _duration)
                 .SetEase(Ease.Linear)
                 .OnComplete(
-                    () => {  });
+                    () => { });
 
             btn.enabled = false;
         }
@@ -90,7 +91,7 @@ namespace IceFoxStudio
             circleRight.gameObject.SetActive(_isTutorial);
             circleRight.enabled = _isTutorial;
         }
-        
+
         private void OnDisable()
         {
             _tweener?.Kill();
@@ -100,7 +101,14 @@ namespace IceFoxStudio
         {
             _tweener?.Kill();
         }
+
+        [ContextMenu("Get Sprite")]
+        void GetSprite()
+        {
+            item1 = transform.GetChild(0).GetComponent<Image>().sprite;
+        }
     }
+
 
     public class ShowItemCluePopupMessage
     {
