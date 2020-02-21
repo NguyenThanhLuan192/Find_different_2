@@ -99,11 +99,13 @@ namespace IceFoxStudio
         void HandlerShowAds()
         {
             Time.timeScale = 0;
+  SoundManager.singleton.TurnOffSound();
         }
 
         void HandlerCloseAds()
         {
             Time.timeScale = 1;
+  SoundManager.singleton.TurnOnSound();
         }
 
         public bool IsReadyRewardVideo()

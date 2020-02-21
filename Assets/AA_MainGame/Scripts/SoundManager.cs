@@ -95,7 +95,17 @@ namespace IceFoxStudio
         {
             soundSources.ForEach(s => s.mute = mute);
         }
+ public void TurnOnSound()
+        {
+            musicSource.volume = 0;
+            soundSources.ForEach(s => s.volume = 0);
+        }
 
+        public void TurnOffSound()
+        {
+            musicSource.volume = 0;
+            soundSources.ForEach(s => s.volume = 0);
+        }
         public void PlaySound(string nameSound, bool on = true)
         {
             if (on)

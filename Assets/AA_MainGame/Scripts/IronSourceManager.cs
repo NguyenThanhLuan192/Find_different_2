@@ -188,9 +188,13 @@ namespace IceFoxStudio
         {
             Debug.Log("InterstitialAdClosedEvent");
 
-            handlerCloseAd?.Invoke();
-            cbInterstitial?.Invoke();
-            cbInterstitial = null;
+             Observable.Timer(TimeSpan.FromSeconds(0.1f),Scheduler.MainThreadIgnoreTimeScale).Subscribe(_ =>
+            {
+                handlerCloseAd?.Invoke();
+                cbInterstitial?.Invoke();
+                cbInterstitial = null;
+                IronSource.Agent.loadInterstitial();    
+            });
         }
 
         private void InterstitialAdOpenedEvent()
@@ -252,11 +256,14 @@ namespace IceFoxStudio
         {
             Debug.Log("RewardedVideoAdClosedEvent");
             Firebase.Analytics.FirebaseAnalytics.LogEvent("watch_rewarded_video_complete_" + completeReward);
-            cbRewardedVideo?.Invoke(completeReward);
-            cbRewardedVideo = null;
-            completeReward = false;
-            this.RequestRewardedAd();
-            handlerCloseAd?.Invoke();
+            Observable.Timer(TimeSpan.FromSeconds(0.1f),Scheduler.MainThreadIgnoreTimeScale).Subscribe(_ =>
+            {
+                cbRewardedVideo?.Invoke(completeReward);
+                cbRewardedVideo = null;
+                completeReward = false;
+                this.RequestRewardedAd();
+                handlerCloseAd?.Invoke();
+            });
         }
 
         private void RewardedVideoAdEndedEvent()

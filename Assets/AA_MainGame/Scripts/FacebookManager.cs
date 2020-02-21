@@ -67,7 +67,7 @@ namespace IceFoxStudio
             }
             else
             {
-                var perms = new List<string>() {"email"};
+                var perms = new List<string>() {"public_profile,email"};
                 FB.LogInWithReadPermissions(perms, AuthCallback);
             }
         }
